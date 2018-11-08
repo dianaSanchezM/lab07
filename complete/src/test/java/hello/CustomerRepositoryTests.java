@@ -28,19 +28,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+
 public class CustomerRepositoryTests {
-
+    /*
     @Autowired
-    CustomerRepository repository;
+    //CustomerRepository repository;
 
-    Customer dave, oliver, carter;
+    //Customer dave, oliver, carter;
 
     @Before
     public void setUp() {
 
-        repository.deleteAll();
+        //repository.deleteAll();
 
         dave = repository.save(new Customer("Dave", "Matthews"));
         oliver = repository.save(new Customer("Oliver August", "Matthews"));
@@ -72,4 +71,5 @@ public class CustomerRepositoryTests {
 
         assertThat(result).hasSize(2).extracting("firstName").contains("Dave", "Oliver August");
     }
+*/
 }
