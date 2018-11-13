@@ -23,9 +23,7 @@ import org.springframework.stereotype.Service;
  * @author diana
  */
 @Service
-public class infoServicesStub implements InformationServices, CommandLineRunner{
-    @Autowired
-	private CustomerRepository repository;
+public class infoServicesStub implements CommandLineRunner,InformationServices{
     
     @Autowired
 	private ConsultaRepository consultRepository;
@@ -33,7 +31,7 @@ public class infoServicesStub implements InformationServices, CommandLineRunner{
     @Autowired
     HttpConnection conection;
     
-    private String jason;
+    private String json;
     private String id;
     private String hist;
     
@@ -41,11 +39,17 @@ public class infoServicesStub implements InformationServices, CommandLineRunner{
     public String getInfo(String hist,String identifier) throws InfoServicesException {
         conection.connect(hist, identifier);
         try {
-            conection.run();
             id=identifier;
             this.hist=hist;
-            jason=conection.getResult();
-            return jason;
+            Consulta consulta = consultRepository.findByIdentifier(identifier+" "+hist);
+            if (consulta==null){
+                System.out.println("No esta en la base de datos");
+                conection.run();
+                json=conection.getResult();
+                consulta=new Consulta(id+" "+hist,json);
+                consultRepository.save(consulta);
+            }
+            return consulta.json;
         } catch (IOException ex) {
             Logger.getLogger(infoServicesStub.class.getName()).log(Level.SEVERE, null, ex);
             throw new InfoServicesException("ERROR CONECTANDO");
@@ -55,31 +59,10 @@ public class infoServicesStub implements InformationServices, CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        repository.deleteAll();
-                consultRepository.save(new Consulta(id,hist,jason));
-		// save a couple of customers
-		//repository.save(new Customer("Alice", "Smith"));
-                /*
-		repository.save(new Customer("Bob", "Smith"));
-
-		// fetch all customers
-		System.out.println("Customers found with findAll():");
-		System.out.println("-------------------------------");
-		for (Customer customer : repository.findAll()) {
-			System.out.println(customer);
-		}
-		System.out.println();
-
-		// fetch an individual customer
-		System.out.println("Customer found with findByFirstName('Alice'):");
-		System.out.println("--------------------------------");
-		System.out.println(repository.findByFirstName("Alice"));
-
-		System.out.println("Customers found with findByLastName('Smith'):");
-		System.out.println("--------------------------------");
-		for (Customer customer : repository.findByLastName("Smith")) {
-			System.out.println(customer);
-		}*/
+        consultRepository.deleteAll();
+        System.out.println("CONECTION TO MONGODB");
     }
+
+    
     
 }

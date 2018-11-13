@@ -5,7 +5,6 @@
  */
 package hello.model;
 
-import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -13,6 +12,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author 2108310
  */
 public interface ConsultaRepository extends MongoRepository<Consulta, String> {
-    public Consulta findByFirstName(String f);
-    public List<Consulta> findByLastName(String lastName);
+    public Consulta findByIdentifier(String identifier);
 }

@@ -7,7 +7,7 @@ var ConsultControllerModule = (function () {
         var callback = {
             
             onSuccess: function(response){
-                
+                $("table").empty();
                 var lista="";
                 for (x in response){
                     if (x.includes("Series")){

@@ -14,16 +14,14 @@ import org.springframework.data.annotation.Id;
 public class Consulta {
     @Id
     public String identifier;
-    public String historico;
-    public String jason;
+    public String json;
 
     public Consulta() {
     }
 
-    public Consulta(String identifier, String historico, String jason) {
+    public Consulta(String identifier,String json) {
         this.identifier = identifier;
-        this.historico = historico;
-        this.jason = jason;
+        this.json = json;
     }
     
     
