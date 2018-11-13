@@ -44,6 +44,7 @@ public class infoServicesStub implements CommandLineRunner,InformationServices{
             Consulta consulta = consultRepository.findByIdentifier(identifier+" "+hist);
             if (consulta==null){
                 System.out.println("No esta en la base de datos");
+                System.out.println("Conectando al API externo");
                 conection.run();
                 json=conection.getResult();
                 consulta=new Consulta(id+" "+hist,json);
